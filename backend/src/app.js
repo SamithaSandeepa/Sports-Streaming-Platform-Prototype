@@ -6,15 +6,13 @@ import matchRoutes from "./routes/matchRoutes.js";
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://sports-streaming-platform-prototype.vercel.app",
-];
-
+// Allow only your frontend domain (or use "*" if you want everyone)
 app.use(
   cors({
-    origin: allowedOrigins,
-    credentials: true,
+    origin: [
+      "http://localhost:3000",
+      "https://sports-streaming-platform-prototype.vercel.app",
+    ],
   })
 );
 
