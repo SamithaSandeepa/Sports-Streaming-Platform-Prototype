@@ -1,26 +1,45 @@
 "use client";
-import { useState, useEffect, createContext, useContext } from "react";
-import { getToken, clearToken } from "@/lib/auth";
-import { useRouter } from "next/navigation";
 
-const AuthContext = createContext<{ token: string | null; logout(): void }>({
+import { useState, useEffect, createContext, useContext } from "react";
+import {
+  getToken as getCookieToken,
+  clearToken as clearCookieToken,
+} from "@/lib/auth";
+
+interface AuthContextValue {
+  token: string | null;
+  login(token: string): void;
+  logout(): void;
+}
+
+const AuthContext = createContext<AuthContextValue>({
   token: null,
+  login() {},
   logout() {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
-  const router = useRouter();
+
+  // on first mount, read any existing cookie
   useEffect(() => {
-    setToken(getToken());
+    setToken(getCookieToken());
   }, []);
-  const logout = () => {
-    clearToken();
+
+  // this replaces your standalone setToken(cookie)
+  function login(newToken: string) {
+    document.cookie = `token=${newToken}; path=/; secure; samesite=strict`;
+
+    setToken(newToken);
+  }
+
+  function logout() {
+    document.cookie = "token=; path=/; max-age=0";
     setToken(null);
-    router.push("/");
-  };
+  }
+
   return (
-    <AuthContext.Provider value={{ token, logout }}>
+    <AuthContext.Provider value={{ token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

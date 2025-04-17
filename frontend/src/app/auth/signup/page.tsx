@@ -2,8 +2,9 @@
 "use client";
 
 import { useState } from "react";
-import { signup } from "@/lib/api";
-import { setToken } from "@/lib/auth";
+import { toast } from "react-hot-toast";
+import { signup as apiSignup } from "@/lib/api";
+import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
@@ -14,14 +15,16 @@ export default function SignUpPage() {
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
+    const { login } = useAuth();
     e.preventDefault();
     if (password !== confirm) {
-      setError("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
     try {
-      const { token } = await signup(email, password);
-      setToken(token);
+      const { token } = await apiSignup(email, password);
+      login(token);
+      toast.success("Account created!");
       router.push("/dashboard");
     } catch {
       setError("Sign‑up failed");

@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { login } from "@/lib/api";
-import { setToken } from "@/lib/auth";
+import { login as apiLogin } from "@/lib/api";
+import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 export default function SignInPage() {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
+
   const [pw, setPw] = useState("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -15,8 +18,9 @@ export default function SignInPage() {
     e.preventDefault();
     setError(null);
     try {
-      const { token } = await login(email, pw);
-      setToken(token);
+      const { token } = await apiLogin(email, pw);
+      login(token);
+      toast.success("Login successful!");
       router.push("/dashboard");
     } catch {
       setError("Invalid email or password");
