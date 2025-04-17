@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MATCHES } from "@/lib/data";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 const FeaturedContent = () => {
   // Get featured matches (first 3 for demonstration)

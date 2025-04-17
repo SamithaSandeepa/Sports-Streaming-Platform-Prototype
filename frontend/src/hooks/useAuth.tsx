@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, useEffect, createContext, useContext } from "react";
-import {
-  getToken as getCookieToken,
-  clearToken as clearCookieToken,
-} from "@/lib/auth";
+import { getToken as getCookieToken } from "@/lib/auth";
 
 interface AuthContextValue {
   token: string | null;

@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { fetchMatches } from "@/lib/api";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
 
 interface Match {
   id: string;
@@ -17,7 +18,7 @@ interface Match {
 }
 
 export default function DashboardPage() {
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -50,7 +51,7 @@ export default function DashboardPage() {
               href={`/stream/${m.id}`}
               className="block bg-gray-800 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
             >
-              <img
+              <Image
                 src={m.thumbnail}
                 alt={m.title}
                 className="w-full h-40 object-cover"
