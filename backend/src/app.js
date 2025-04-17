@@ -6,18 +6,22 @@ import matchRoutes from "./routes/matchRoutes.js";
 
 const app = express();
 
+const allowed = [
+  "http://localhost:3000",
+  "https://sports-streaming-platform-prototype.vercel.app/",
+  "https://sports-streaming-platform-prototype.vercel.app",
+  
+];
+
 app.use(
   cors({
-    origin: "*", // allow requests from any domain
-    // methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    // allowedHeaders: [
-    //   "Content-Type",
-    //   "Authorization",
-    //   "Accept",
-    //   "Origin",
-    //   "X-Requested-With",
-    // ],
-    // credentials: true, // if you ever send cookies/auth headers
+    origin: (origin, cb) => {
+      // allow REST clients like Postman with no origin:
+      if (!origin) return cb(null, true);
+      if (allowed.includes(origin)) return cb(null, true);
+      cb(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
   })
 );
 
