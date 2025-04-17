@@ -48,6 +48,14 @@ export default function Home() {
           BECOME A CONTENT PROVIDER
         </Link>
       </div>
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold mb-4">NOW STREAMING</h2>
+        <NowStreaming />
+      </section>
+      <section className="mb-10">
+        <h2 className="text-2xl font-bold mb-4">COMING UP</h2>
+        <ComingUp />
+      </section>
     </div>
   );
 }

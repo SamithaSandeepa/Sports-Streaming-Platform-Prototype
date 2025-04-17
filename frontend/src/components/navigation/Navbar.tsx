@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { FaSearch, FaUser } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
