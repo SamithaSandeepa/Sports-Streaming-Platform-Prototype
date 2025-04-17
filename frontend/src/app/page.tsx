@@ -10,7 +10,9 @@ export default function Home() {
   return (
     <div className="container mx-auto px-4 py-6">
       <section className="mb-10">
-        <h1 className="text-3xl font-bold mb-6">FEATURED LIVE EVENTS</h1>
+        <h1 className="text-2zxl font-bold mb-6 md:text-3xl">
+          FEATURED LIVE EVENTS
+        </h1>
         <FeaturedContent />
       </section>
 
