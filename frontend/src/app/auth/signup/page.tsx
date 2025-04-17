@@ -27,15 +27,15 @@ export default function SignUpPage() {
       toast.success("Account created!");
       router.push("/dashboard");
     } catch {
-      setError("Sign‑up failed");
+      toast.error("Failed to create account. Please try again.");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
-      <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-lg p-8 space-y-6">
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="max-w-md w-full border rounded-lg shadow-lg p-8 space-y-6">
         <h1 className="text-2xl font-bold mb-4 text-center">Sign Up</h1>
-        {error && <div className="mb-4 text-red-400 text-center">{error}</div>}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-gray-300 mb-1" htmlFor="email">
@@ -48,7 +48,7 @@ export default function SignUpPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-3 py-2 bg-gray-700 rounded focus:outline-none"
+              className="w-full px-3 py-2 bg-white rounded focus:outline-none"
             />
           </div>
           <div>
@@ -62,7 +62,7 @@ export default function SignUpPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-3 py-2 bg-gray-700 rounded focus:outline-none"
+              className="w-full px-3 py-2 bg-white rounded focus:outline-none"
             />
           </div>
           <div>
@@ -76,16 +76,25 @@ export default function SignUpPage() {
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
               required
-              className="w-full px-3 py-2 bg-gray-700 rounded focus:outline-none"
+              className="w-full px-3 py-2 bg-white rounded focus:outline-none mb-4"
             />
           </div>
           <button
             type="submit"
-            className="w-full py-2 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors"
+            className="w-full py-2 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors "
           >
             Create Account
           </button>
         </form>
+        <p className="text-center text-gray-400">
+          Already have an account?{" "}
+          <a
+            href="/auth/signin"
+            className="text-primary hover:underline font-medium"
+          >
+            Sign In
+          </a>
+        </p>
       </div>
     </div>
   );

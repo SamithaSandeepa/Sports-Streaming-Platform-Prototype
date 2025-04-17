@@ -5,36 +5,32 @@ import { login as apiLogin } from "@/lib/api";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
 
 export default function SignInPage() {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
-
   const [pw, setPw] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
     try {
       const { token } = await apiLogin(email, pw);
       login(token);
       toast.success("Login successful!");
       router.push("/dashboard");
     } catch {
-      setError("Invalid email or password");
+      toast.error("Invalid email or password");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gray-900">
       <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-lg p-8 space-y-6">
         <h2 className="text-3xl font-extrabold text-center text-white">
           Welcome Back
         </h2>
-
-        {error && <div className="text-red-400 text-center">{error}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -77,12 +73,12 @@ export default function SignInPage() {
 
         <p className="text-center text-gray-400">
           Don’t have an account?{" "}
-          <a
+          <Link
             href="/auth/signup"
             className="text-primary hover:underline font-medium"
           >
             Sign Up
-          </a>
+          </Link>
         </p>
       </div>
     </div>
