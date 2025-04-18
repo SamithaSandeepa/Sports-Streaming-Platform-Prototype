@@ -25,7 +25,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <Toaster
-            position="top-right"
+            position="bottom-center"
             toastOptions={{
               duration: 4000,
               style: { background: "#333", color: "#fff" },
