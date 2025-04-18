@@ -8,7 +8,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://sports-streaming-platform-protot-git-fd2346-samitha99s-projects.vercel.app",
+  "https://sports-streaming-platform-prototype.vercel.app",
 ];
 
 app.use(
